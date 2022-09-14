@@ -10,8 +10,8 @@ import com.google.firebase.firestore.Source;
 
 import com.androidhuman.rxfirebase2.firestore.model.Value;
 
-import android.support.annotation.CheckResult;
-import android.support.annotation.NonNull;
+import androidx.annotation.CheckResult;
+import androidx.annotation.NonNull;
 
 import java.util.Map;
 

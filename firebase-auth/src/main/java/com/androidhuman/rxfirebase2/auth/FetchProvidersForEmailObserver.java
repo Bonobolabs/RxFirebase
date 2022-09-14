@@ -6,7 +6,7 @@ import com.google.firebase.auth.ProviderQueryResult;
 
 import com.androidhuman.rxfirebase2.core.OnCompleteDisposable;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import java.util.List;
 
