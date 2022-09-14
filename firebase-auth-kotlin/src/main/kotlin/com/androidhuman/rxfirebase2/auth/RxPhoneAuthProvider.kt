@@ -20,16 +20,3 @@ inline fun PhoneAuthProvider.rxVerifyPhoneNumber(phoneNumber: String,
         : Observable<PhoneAuthEvent>
         = RxPhoneAuthProvider.verifyPhoneNumber(
         this, phoneNumber, timeout, timeUnit, activity, forceResendingToken)
-
-inline fun PhoneAuthProvider.rxVerifyPhoneNumber(phoneNumber: String,
-        timeout: Long, timeUnit: TimeUnit, executor: Executor)
-        : Observable<PhoneAuthEvent>
-        = RxPhoneAuthProvider.verifyPhoneNumber(
-        this, phoneNumber, timeout, timeUnit, executor)
-
-inline fun PhoneAuthProvider.rxVerifyPhoneNumber(phoneNumber: String,
-        timeout: Long, timeUnit: TimeUnit, executor: Executor,
-        forceResendingToken: PhoneAuthProvider.ForceResendingToken)
-        : Observable<PhoneAuthEvent>
-        = RxPhoneAuthProvider.verifyPhoneNumber(
-        this, phoneNumber, timeout, timeUnit, executor, forceResendingToken)

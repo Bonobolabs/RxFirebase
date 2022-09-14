@@ -7,7 +7,6 @@ import androidx.annotation.CheckResult;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import java.util.concurrent.Executor;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
@@ -31,24 +30,5 @@ public final class RxPhoneAuthProvider {
             @Nullable PhoneAuthProvider.ForceResendingToken forceResendingToken) {
         return new PhoneAuthProviderVerifyPhoneNumberActivityObserver(
                 provider, phoneNumber, timeout, timeUnit, activity, forceResendingToken);
-    }
-
-    @CheckResult
-    @NonNull
-    public static Observable<PhoneAuthEvent> verifyPhoneNumber(
-            @NonNull PhoneAuthProvider provider, String phoneNumber,
-            long timeout, TimeUnit timeUnit, Executor executor) {
-        return verifyPhoneNumber(provider, phoneNumber,
-                timeout, timeUnit, executor, null);
-    }
-
-    @CheckResult
-    @NonNull
-    public static Observable<PhoneAuthEvent> verifyPhoneNumber(
-            @NonNull PhoneAuthProvider provider, String phoneNumber,
-            long timeout, TimeUnit timeUnit, Executor executor,
-            @Nullable PhoneAuthProvider.ForceResendingToken forceResendingToken) {
-        return new PhoneAuthProviderVerifyPhoneNumberExecutorObserver(
-                provider, phoneNumber, timeout, timeUnit, executor, forceResendingToken);
     }
 }
