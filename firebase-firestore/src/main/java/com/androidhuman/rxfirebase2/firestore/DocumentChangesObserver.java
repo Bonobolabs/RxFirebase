@@ -49,12 +49,12 @@ final class DocumentChangesObserver extends Observable<Value<DocumentSnapshot>> 
         @Override
         public void onEvent(DocumentSnapshot snapshot, FirebaseFirestoreException e) {
             if (!isDisposed()) {
-                if (null != e) {
+                if (null != e && observer != null) {
                     observer.onError(e);
                 } else {
-                    if (null != snapshot && snapshot.exists()) {
+                    if (null != snapshot && snapshot.exists() && observer != null) {
                         observer.onNext(Value.of(snapshot));
-                    } else {
+                    } else if (observer != null) {
                         observer.onNext(Value.<DocumentSnapshot>empty());
                     }
                 }
