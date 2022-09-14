@@ -41,6 +41,3 @@ dependencies {
     compileOnly "io.reactivex.rxjava2:rxjava:${rxJavaVersion}"
     compileOnly "org.jetbrains.kotlin:kotlin-stdlib:${kotlinVersion}"
 }
-
-apply from: rootProject.file('gradle/gradle-mvn-local.gradle')
-apply from: rootProject.file('gradle/gradle-mvn-push.gradle')

@@ -2,11 +2,11 @@ package com.androidhuman.rxfirebase2.auth;
 
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.ProviderQueryResult;
+import com.google.firebase.auth.SignInMethodQueryResult;
 
 import com.androidhuman.rxfirebase2.core.OnCompleteDisposable;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import java.util.List;
 
@@ -30,11 +30,11 @@ final class FetchProvidersForEmailObserver extends Maybe<List<String>> {
         Listener listener = new Listener(observer);
         observer.onSubscribe(listener);
 
-        instance.fetchProvidersForEmail(email)
-                .addOnCompleteListener(listener);
+        instance.fetchSignInMethodsForEmail(email)
+                        .addOnCompleteListener(listener);
     }
 
-    private static final class Listener extends OnCompleteDisposable<ProviderQueryResult> {
+    private static final class Listener extends OnCompleteDisposable<SignInMethodQueryResult> {
 
         private final MaybeObserver<? super List<String>> observer;
 
@@ -43,12 +43,12 @@ final class FetchProvidersForEmailObserver extends Maybe<List<String>> {
         }
 
         @Override
-        public void onComplete(@NonNull Task<ProviderQueryResult> task) {
+        public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
             if (!isDisposed()) {
                 if (!task.isSuccessful()) {
                     observer.onError(task.getException());
                 } else {
-                    List<String> providers = task.getResult().getProviders();
+                    List<String> providers = task.getResult().getSignInMethods();
                     if (null != providers) {
                         observer.onSuccess(providers);
                     } else {

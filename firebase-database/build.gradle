@@ -37,11 +37,11 @@ android {
 dependencies {
     implementation project(":firebase-core")
 
-    compileOnly "com.google.auto.value:auto-value:${autoValueVersion}"
+    compileOnly "com.google.auto.value:auto-value-annotations:${autoValueVersion}"
+    annotationProcessor "com.google.auto.value:auto-value:${autoValueVersion}"
+
     compileOnly "com.google.firebase:firebase-database:${firebaseDatabaseVersion}"
     compileOnly "io.reactivex.rxjava2:rxjava:${rxJavaVersion}"
-
-    annotationProcessor "com.google.auto.value:auto-value:${autoValueVersion}"
 
     testImplementation "com.google.firebase:firebase-database:${firebaseDatabaseVersion}"
     testImplementation "com.nhaarman:mockito-kotlin:${mockitoKotlinVersion}"
@@ -51,8 +51,5 @@ dependencies {
     testImplementation "org.jetbrains.kotlin:kotlin-stdlib:${kotlinVersion}"
     testImplementation "org.mockito:mockito-core:${mockitoVersion}"
 }
-
-apply from: rootProject.file('gradle/gradle-mvn-local.gradle')
-apply from: rootProject.file('gradle/gradle-mvn-push.gradle')
 
 apply plugin: 'com.google.android.gms.strict-version-matcher-plugin'

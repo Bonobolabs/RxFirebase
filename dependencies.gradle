@@ -1,29 +1,29 @@
 ext {
     // Libraries
 
-    autoValueVersion = "1.5"
-    assertjVersion = '1.2.0'
-    firebaseAuthVersion = '16.1.0'
-    firebaseCoreVersion = '16.0.5'
-    firebaseDatabaseVersion = '16.0.3'
-    firebaseFirestoreVersion = '17.1.5'
-    firebaseStorageVersion = '16.0.1'
-    junitVersion = '4.12'
-    kotlinVersion = '1.2.61'
-    mockitoVersion = "2.13.0"
-    mockitoKotlinVersion = "1.5.0"
-    rxJavaVersion = '2.1.8'
+    autoValueVersion = "1.9"
+    assertjVersion = '3.23.1'
+    firebaseAuthVersion = '21.0.8'
+    firebaseCoreVersion = '21.1.1'
+    firebaseDatabaseVersion = '20.0.6'
+    firebaseFirestoreVersion = '24.3.0'
+    firebaseStorageVersion = '20.0.2'
+    junitVersion = '4.13.2'
+    kotlinVersion = '1.7.10'
+    mockitoVersion = '4.8.0'
+    mockitoKotlinVersion = "1.6.0"
+    rxJavaVersion = '2.2.21'
 
     // Build plugins
 
-    androidPluginVersion = '3.2.1'
-    versionMatcherPluginVersion = '1.0.3'
+    androidPluginVersion = '7.2.2'
+    versionMatcherPluginVersion = '1.2.4'
 
     // Build SDK versions
-    minSdkVersion = 14
-    compileSdkVersion = 28
+    minSdkVersion = 21
+    compileSdkVersion = 33
 
     // CI
 
-    ci = 'true'.equals(System.getenv('CI'))
+    ci = 'true' == System.getenv('CI')
 }

@@ -11,15 +11,15 @@ subprojects {
         group = "Reporting"
         description = "Generate Jacoco coverage report"
 
-        sourceDirectories = files(["${projectDir}/src/main/java"])
-        classDirectories = fileTree(
+        getSourceDirectories().setFrom(files(["${projectDir}/src/main/java"]))
+        getClassDirectories().setFrom(fileTree(
                 dir: "${buildDir}/intermediates/classes/debug",
                 excludes: ['**/R.class',
                            '**/R$*.class',
                            '**/BuildConfig.*',
                            '**/Manifest*.*',
-                           'com/android/**/*.class'])
-        executionData = files("${buildDir}/jacoco/testDebugUnitTest.exec")
+                           'com/android/**/*.class']))
+        getExecutionData().setFrom(files("${buildDir}/jacoco/testDebugUnitTest.exec"))
 
         reports {
             xml.enabled = true
@@ -62,9 +62,9 @@ task mergeCoverageReports(type: JacocoReport) {
         }
     }
 
-    sourceDirectories = files(sources as String[])
-    classDirectories = classDirs
-    executionData = files(executions as String[])
+    getSourceDirectories().setFrom(files(sources as String[]))
+    getClassDirectories().setFrom(classDirs)
+    getExecutionData().setFrom(files(executions as String[]))
 
     reports {
         xml {

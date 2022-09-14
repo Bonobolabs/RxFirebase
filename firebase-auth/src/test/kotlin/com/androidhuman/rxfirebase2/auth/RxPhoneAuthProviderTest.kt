@@ -164,130 +164,130 @@ class RxPhoneAuthProviderTest {
         }
     }
 
-    @Test
-    fun verifyPhoneNumberExecutorComplete() {
-        val credential = mock<PhoneAuthCredential>()
-        val forceResendingToken = mock<PhoneAuthProvider.ForceResendingToken>()
-
-        with(TestObserver.create<PhoneAuthEvent>()) {
-            RxPhoneAuthProvider.verifyPhoneNumber(phoneAuthProvider,
-                    "123-456-7890",
-                    2L, TimeUnit.MINUTES, executor)
-                    .subscribe(this)
-
-            // verify verifyPhoneNumber(
-            //   String, Long, TimeUnit, Activity, OnVerificationStateChangedCallbacks) has called
-            verify(phoneAuthProvider, times(1))
-                    .verifyPhoneNumber(eq("123-456-7890"),
-                            eq(2L), eq(TimeUnit.MINUTES), eq(executor),
-                            onVerificationStateChangedListener.capture())
-
-            // simulate the callback
-            onVerificationStateChangedListener.lastValue
-                    .onCodeSent("123456", forceResendingToken)
-
-            assertNoErrors()
-            assertNotComplete()
-            assertValueAt(0) {
-                it is PhoneAuthCodeSentEvent
-                        && "123456" == it.verificationId()
-                        && forceResendingToken == it.forceResendingToken()
-            }
-
-            // simulate the callback
-            onVerificationStateChangedListener.lastValue
-                    .onVerificationCompleted(credential)
-
-            assertNoErrors()
-            assertComplete()
-            assertValueAt(1) {
-                it is PhoneAuthVerificationCompleteEvent
-                        && credential == it.credential()
-            }
-
-            dispose()
-        }
-    }
-
-    @Test
-    fun verifyPhoneNumberExecutorCodeAutoRetrievalTimeOut() {
-        with(TestObserver.create<PhoneAuthEvent>()) {
-            RxPhoneAuthProvider.verifyPhoneNumber(phoneAuthProvider,
-                    "123-456-7890",
-                    2L, TimeUnit.MINUTES, executor)
-                    .subscribe(this)
-
-            // verify verifyPhoneNumber(
-            //   String, Long, TimeUnit, Activity, OnVerificationStateChangedCallbacks) has called
-            verify(phoneAuthProvider, times(1))
-                    .verifyPhoneNumber(eq("123-456-7890"),
-                            eq(2L), eq(TimeUnit.MINUTES), eq(executor),
-                            onVerificationStateChangedListener.capture())
-
-            // simulate the callback
-            onVerificationStateChangedListener.lastValue
-                    .onCodeAutoRetrievalTimeOut("123456")
-
-            assertNoErrors()
-            assertComplete()
-            assertValue {
-                it is PhoneAuthCodeAutoRetrievalTimeOutEvent
-                        && "123456" == it.verificationId()
-            }
-
-            dispose()
-        }
-    }
-
-    @Test
-    fun verifyPhoneNumberExecutorFailed() {
-        val exception = mock<FirebaseException>()
-
-        with(TestObserver.create<PhoneAuthEvent>()) {
-            RxPhoneAuthProvider.verifyPhoneNumber(phoneAuthProvider,
-                    "123-456-7890",
-                    2L, TimeUnit.MINUTES, executor)
-                    .subscribe(this)
-
-            // verify verifyPhoneNumber(
-            //   String, Long, TimeUnit, Activity, OnVerificationStateChangedCallbacks) has called
-            verify(phoneAuthProvider, times(1))
-                    .verifyPhoneNumber(eq("123-456-7890"),
-                            eq(2L), eq(TimeUnit.MINUTES), eq(executor),
-                            onVerificationStateChangedListener.capture())
-
-            // simulate the callback
-            onVerificationStateChangedListener.lastValue
-                    .onVerificationFailed(exception)
-
-            assertError { it is FirebaseException }
-
-            dispose()
-        }
-    }
-
-    @Test
-    fun verifyPhoneNumberExecutorWithForceResendingToken() {
-        val forceResendingToken = mock<PhoneAuthProvider.ForceResendingToken>()
-
-        with(TestObserver.create<PhoneAuthEvent>()) {
-            RxPhoneAuthProvider.verifyPhoneNumber(phoneAuthProvider,
-                    "123-456-7890",
-                    2L, TimeUnit.MINUTES, executor, forceResendingToken)
-                    .subscribe(this)
-
-            // verify verifyPhoneNumber(
-            //   String, Long, TimeUnit, Activity,
-            //   OnVerificationStateChangedCallbacks, ForceResendingToken) has called
-            verify(phoneAuthProvider, times(1))
-                    .verifyPhoneNumber(eq("123-456-7890"),
-                            eq(2L), eq(TimeUnit.MINUTES), eq(executor),
-                            onVerificationStateChangedListener.capture(), eq(forceResendingToken))
-
-            // do not run any other tests
-            // since it uses PhoneAuthProviderVerifyPhoneNumberActivityObserver
-            // which is being verified on verifyPhoneNumberActivity*() tests.
-            dispose()
-        }
-    }
+//    @Test
+//    fun verifyPhoneNumberExecutorComplete() {
+//        val credential = mock<PhoneAuthCredential>()
+//        val forceResendingToken = mock<PhoneAuthProvider.ForceResendingToken>()
+//
+//        with(TestObserver.create<PhoneAuthEvent>()) {
+//            RxPhoneAuthProvider.verifyPhoneNumber(phoneAuthProvider,
+//                    "123-456-7890",
+//                    2L, TimeUnit.MINUTES, executor)
+//                    .subscribe(this)
+//
+//            // verify verifyPhoneNumber(
+//            //   String, Long, TimeUnit, Activity, OnVerificationStateChangedCallbacks) has called
+//            verify(phoneAuthProvider, times(1))
+//                    .verifyPhoneNumber(eq("123-456-7890"),
+//                            eq(2L), eq(TimeUnit.MINUTES), eq(executor),
+//                            onVerificationStateChangedListener.capture())
+//
+//            // simulate the callback
+//            onVerificationStateChangedListener.lastValue
+//                    .onCodeSent("123456", forceResendingToken)
+//
+//            assertNoErrors()
+//            assertNotComplete()
+//            assertValueAt(0) {
+//                it is PhoneAuthCodeSentEvent
+//                        && "123456" == it.verificationId()
+//                        && forceResendingToken == it.forceResendingToken()
+//            }
+//
+//            // simulate the callback
+//            onVerificationStateChangedListener.lastValue
+//                    .onVerificationCompleted(credential)
+//
+//            assertNoErrors()
+//            assertComplete()
+//            assertValueAt(1) {
+//                it is PhoneAuthVerificationCompleteEvent
+//                        && credential == it.credential()
+//            }
+//
+//            dispose()
+//        }
+//    }
+//
+//    @Test
+//    fun verifyPhoneNumberExecutorCodeAutoRetrievalTimeOut() {
+//        with(TestObserver.create<PhoneAuthEvent>()) {
+//            RxPhoneAuthProvider.verifyPhoneNumber(phoneAuthProvider,
+//                    "123-456-7890",
+//                    2L, TimeUnit.MINUTES, executor)
+//                    .subscribe(this)
+//
+//            // verify verifyPhoneNumber(
+//            //   String, Long, TimeUnit, Activity, OnVerificationStateChangedCallbacks) has called
+//            verify(phoneAuthProvider, times(1))
+//                    .verifyPhoneNumber(eq("123-456-7890"),
+//                            eq(2L), eq(TimeUnit.MINUTES), eq(executor),
+//                            onVerificationStateChangedListener.capture())
+//
+//            // simulate the callback
+//            onVerificationStateChangedListener.lastValue
+//                    .onCodeAutoRetrievalTimeOut("123456")
+//
+//            assertNoErrors()
+//            assertComplete()
+//            assertValue {
+//                it is PhoneAuthCodeAutoRetrievalTimeOutEvent
+//                        && "123456" == it.verificationId()
+//            }
+//
+//            dispose()
+//        }
+//    }
+//
+//    @Test
+//    fun verifyPhoneNumberExecutorFailed() {
+//        val exception = mock<FirebaseException>()
+//
+//        with(TestObserver.create<PhoneAuthEvent>()) {
+//            RxPhoneAuthProvider.verifyPhoneNumber(phoneAuthProvider,
+//                    "123-456-7890",
+//                    2L, TimeUnit.MINUTES, executor)
+//                    .subscribe(this)
+//
+//            // verify verifyPhoneNumber(
+//            //   String, Long, TimeUnit, Activity, OnVerificationStateChangedCallbacks) has called
+//            verify(phoneAuthProvider, times(1))
+//                    .verifyPhoneNumber(eq("123-456-7890"),
+//                            eq(2L), eq(TimeUnit.MINUTES), eq(executor),
+//                            onVerificationStateChangedListener.capture())
+//
+//            // simulate the callback
+//            onVerificationStateChangedListener.lastValue
+//                    .onVerificationFailed(exception)
+//
+//            assertError { it is FirebaseException }
+//
+//            dispose()
+//        }
+//    }
+//
+//    @Test
+//    fun verifyPhoneNumberExecutorWithForceResendingToken() {
+//        val forceResendingToken = mock<PhoneAuthProvider.ForceResendingToken>()
+//
+//        with(TestObserver.create<PhoneAuthEvent>()) {
+//            RxPhoneAuthProvider.verifyPhoneNumber(phoneAuthProvider,
+//                    "123-456-7890",
+//                    2L, TimeUnit.MINUTES, executor, forceResendingToken)
+//                    .subscribe(this)
+//
+//            // verify verifyPhoneNumber(
+//            //   String, Long, TimeUnit, Activity,
+//            //   OnVerificationStateChangedCallbacks, ForceResendingToken) has called
+//            verify(phoneAuthProvider, times(1))
+//                    .verifyPhoneNumber(eq("123-456-7890"),
+//                            eq(2L), eq(TimeUnit.MINUTES), eq(executor),
+//                            onVerificationStateChangedListener.capture(), eq(forceResendingToken))
+//
+//            // do not run any other tests
+//            // since it uses PhoneAuthProviderVerifyPhoneNumberActivityObserver
+//            // which is being verified on verifyPhoneNumberActivity*() tests.
+//            dispose()
+//        }
+//    }
 }

@@ -1,11 +1,13 @@
 package com.androidhuman.rxfirebase2.auth;
 
+import android.app.Activity;
+
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.TimeUnit;
@@ -24,20 +26,20 @@ public final class PhoneAuthProviderVerifyPhoneNumberExecutorObserver
 
     private final TimeUnit timeUnit;
 
-    private final Executor executor;
+    private final Activity activity;
 
     @Nullable
     private final PhoneAuthProvider.ForceResendingToken forceResendingToken;
 
     PhoneAuthProviderVerifyPhoneNumberExecutorObserver(
             PhoneAuthProvider provider, String phoneNumber, long timeOut,
-            TimeUnit timeUnit, Executor executor,
+            TimeUnit timeUnit, Activity activity,
             @Nullable PhoneAuthProvider.ForceResendingToken forceResendingToken) {
         this.provider = provider;
         this.phoneNumber = phoneNumber;
         this.timeOut = timeOut;
         this.timeUnit = timeUnit;
-        this.executor = executor;
+        this.activity = activity;
         this.forceResendingToken = forceResendingToken;
     }
 
@@ -48,10 +50,10 @@ public final class PhoneAuthProviderVerifyPhoneNumberExecutorObserver
 
         if (null == forceResendingToken) {
             provider.verifyPhoneNumber(phoneNumber, timeOut, timeUnit,
-                    executor, listener);
+                    activity, listener);
         } else {
             provider.verifyPhoneNumber(phoneNumber, timeOut, timeUnit,
-                    executor, listener, forceResendingToken);
+                    activity, listener, forceResendingToken);
         }
     }
 
