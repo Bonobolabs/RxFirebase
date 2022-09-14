@@ -48,9 +48,9 @@ final class QueryChangesObserver extends Observable<Value<QuerySnapshot>> {
         @Override
         public void onEvent(QuerySnapshot snapshot, FirebaseFirestoreException e) {
             if (!isDisposed()) {
-                if (e != null) {
+                if (e != null && observer != null) {
                     observer.onError(e);
-                } else {
+                } else if(observer != null) {
                     if (!snapshot.isEmpty()) {
                         observer.onNext(Value.of(snapshot));
                     } else {
