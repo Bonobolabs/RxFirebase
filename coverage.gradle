@@ -7,7 +7,7 @@ subprojects {
         reportsDir = file("${buildDir}/reports")
     }
 
-    task coverageReport(type: JacocoReport) {
+    tasks.register('coverageReport', JacocoReport) {
         group = "Reporting"
         description = "Generate Jacoco coverage report"
 
@@ -28,7 +28,7 @@ subprojects {
     }
 
     afterEvaluate {
-        tasks.findByName('coverageReport').dependsOn('testDebugUnitTest')
+        tasks.named('coverageReport').dependsOn('testDebugUnitTest')
     }
 }
 
@@ -36,7 +36,7 @@ jacoco {
     reportsDir = file("${buildDir}/reports")
 }
 
-task mergeCoverageReports(type: JacocoReport) {
+tasks.register('mergeCoverageReports', JacocoReport) {
     group = "Reporting"
     description = "Merge Jacoco coverage reports"
 
@@ -78,7 +78,7 @@ task mergeCoverageReports(type: JacocoReport) {
     }
 
     afterEvaluate {
-        tasks.findByName('mergeCoverageReports').dependsOn {
+        tasks.named('mergeCoverageReports').dependsOn {
             subprojects*.coverageReport
         }
     }

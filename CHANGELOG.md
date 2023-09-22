@@ -253,7 +253,7 @@ Built and tested with:
 - Updated Firebase SDK version to 11.2.0.
 - Updated Kotlin to 1.1.4-3.
 - Updated RxJava to 2.1.3.
-- Updated compileSdkVersion to 26.
+- Updated compileSdk to 26.
 
 ## Version 11.0.4.0 *(2017/07/30)*
 
