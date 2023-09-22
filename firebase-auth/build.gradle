@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
-    namespace 'bonobolabs.rxfirebase.firebase-auth'
+    namespace 'bonobolabs.rxfirebase.firebase.auth'
 
     compileSdk rootProject.ext.compileSdk
 
